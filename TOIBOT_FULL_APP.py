@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """
-T.O.I.B.O.T - Barcha funksiyalari to'liq jamlangan, Gradle & AGP xatolari tuzatilgan yagona fayl.
+T.O.I.B.O.T - Barcha funksiyalari to'liq jamlangan, xatolari tuzatilgan yagona fayl.
 New repository uchun tayyor.
 """
 import os
 import shutil
-import subprocess
 import urllib.request
 import zipfile
 
@@ -31,16 +30,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle 8.7 (compatible with Android Gradle Plugin)
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
-
       - name: Generate full T.O.I.B.O.T project and download offline STT model
         run: python3 TOIBOT_FULL_APP.py
 
       - name: Build APK with Gradle
-        run: gradle assembleDebug --no-daemon --stacktrace
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload TOIBOT APK artifact
         uses: actions/upload-artifact@v4
@@ -71,8 +65,8 @@ rootProject.name = "ToibotAssistant"
 include(":app")
 """,
     "build.gradle.kts": """plugins {
-    id("com.android.application") version "8.5.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.24" apply false
+    id("com.android.application") version "8.2.2" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.22" apply false
 }
 """,
     "gradle.properties": """org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
@@ -93,7 +87,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "5.1-toibot-fixed"
+        versionName = "5.0-toibot-complete"
     }
 
     buildTypes {
